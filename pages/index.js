@@ -8,23 +8,30 @@ export class Index extends React.Component {
     this.state = {
       api_url: process.env.API_URL,
       data: "",
+      notifications: {},
     }
   }
 
   async componentDidMount() {
-    // request initial data
-    const fetchurl = "http://localhost:6015/";
+    // make data requests
+    this.setState({data: await this.fetchData("")});
+    this.setState({notifications: await this.fetchData("notifications-by-type")});
+  }
+
+  async fetchData(url) {
+    const fetchurl = "http://localhost:6015/" + url;
     try {
-      await fetch(fetchurl)
+      let resp_data = await fetch(fetchurl)
         .then(response => {
           //console.log(response.text())
           if (response.ok) {
             return response.json();
           }
         }).then(data => {
-          console.log(data)
-          this.setState({data: data})
+          return data;
         })
+      console.log(resp_data)
+      return(resp_data)
     } catch(err) {
       console.log(err);
     }
@@ -44,6 +51,11 @@ export class Index extends React.Component {
         <div>
           <div>Notifications sent: {this.state.data.notifications}</div>
           <div>Services: {this.state.data.services}</div>
+        </div>
+        <Header>Notifications by Type:</Header>
+        <div>
+          <div>Emails sent: {this.state.notifications.email}</div>
+          <div>SMS sent: {this.state.notifications.sms}</div>
         </div>
       </div>
     )
