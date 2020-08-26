@@ -1,29 +1,29 @@
-const express = require('express')
-const next = require('next')
+const express = require("express");
+const next = require("next");
+require("dotenv").config();
 
-const dev = process.env.NODE_ENV !== 'production'
+const dev = process.env.NODE_ENV !== "production";
 
-console.log('Env:', process.env.NODE_ENV);
+console.log("Env:", process.env.NODE_ENV);
 
 const app = next({
-    dir: '.',
-    dev
- })
+  dir: ".",
+  dev,
+});
 
-const handle = app.getRequestHandler()
+const handle = app.getRequestHandler();
 
-app.prepare()
-    .then(() => {
-        const server = express()
+app.prepare().then(() => {
+  const server = express();
 
-        const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3000;
 
-        server.get('*', (req, res) => {
-            return handle(req, res)
-        })
+  server.get("*", (req, res) => {
+    return handle(req, res);
+  });
 
-        server.listen(port, (err) => {
-            if (err) throw err
-            console.log(`> Ready on http://localhost:${port}`)
-        })
-    })
+  server.listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});
