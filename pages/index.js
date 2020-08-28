@@ -21,7 +21,7 @@ export class Index extends React.Component {
   }
 
   async fetchData(url) {
-    const fetchurl = "http://stats.staging.notification.cdssandbox.xyz/" + url;
+    const fetchurl = process.env.STATS_API_URL + url;
     try {
       let resp_data = await fetch(fetchurl)
         .then((response) => {
