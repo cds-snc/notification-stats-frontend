@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+* {
+  font-family: Lato,sans-serif;
+}
+
+#main {
+  width: 800px;
+  margin: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  border-bottom: thin solid #C0C1C3;
+}
+td {
+  padding: 1em 0;
+  border-bottom: thin solid #C0C1C3;
+}
+
+h2 {
+  padding-top: 1.5em;
+  border-top: 2px solid #C0C1C3;
+}
